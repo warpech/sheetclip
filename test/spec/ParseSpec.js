@@ -83,4 +83,20 @@ describe('SheetClip.parse', function () {
 
     expect(arr).toEqual(expected);
   });
+
+  it('should parse three columns with multiple quotes and new lines', function () {
+    var str = '\t"""A\nBC\nD"""\tE\n"""F\n"""\t"""G\n"""\tH\n"I\nJ\nK"""\t"L\nM\nN"""\t\n"""O\n"\t"""P\n"\t\nR\tS\tT\n';
+
+    var expected = [
+      ['', '"A\nBC\nD"', 'E'],
+      ['"F\n"', '"G\n"', 'H'],
+      ['I\nJ\nK"', 'L\nM\nN"', ''],
+      ['"O\n', '"P\n', ''],
+      ['R', 'S', 'T']
+    ];
+
+    var arr = SheetClip.parse(str);
+
+    expect(arr).toEqual(expected);
+  });
 });
