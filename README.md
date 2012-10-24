@@ -1,4 +1,4 @@
-# SheetClip
+# SheetClip.js
 
 ### Copy/paste from your HTML5 web app to a spreadsheet
 
