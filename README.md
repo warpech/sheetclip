@@ -58,7 +58,7 @@ to a 2-dimensional array:
 
 This library was created with the intention to be used in <a href="http://handsontable.com/">Handsontable</a>. I decided to make it a separate project in case somebody else needs it.
 
-It **does not** provide you with clipboard access in JavaScript. That part still needs to be figured out by you. There are various ways to achieve it but none of them is perfect. Probably the most compatible with all the browsers is to keep a hidden `<textarea>` on the page that is always focused. Then, you can fill it with value that can will be automatically copied to clipboard when the user presses CTRL+C. Analogously, Pressing CTRL+V will will the focused textarea with value from clipboard.
+It **does not** provide you with clipboard access in JavaScript. That part still needs to be figured out by you. There are various ways to achieve it but none of them is perfect. Probably the most compatible with all the browsers is to keep a hidden `<textarea>` on the page that is always focused. Then, you can fill it with value that can will be automatically copied to clipboard when the user presses CTRL+C. Analogously, pressing CTRL+V will fill the focused textarea with the value from clipboard.
 
 At least this is the way how Handsontable does it.
 
