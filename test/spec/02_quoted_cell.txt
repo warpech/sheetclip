@@ -1,0 +1,2 @@
+"Quoted text"	B0
+A1	B1

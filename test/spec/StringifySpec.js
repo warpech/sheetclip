@@ -2,98 +2,148 @@ describe('SheetClip.stringify', function () {
   var UNDEFINED = (function () {
   }());
 
-  it('should stringify array of numbers', function () {
-    var arr = [
-      [1, 2, 3],
-      [4, 5, 6]
-    ];
+  describe('JSON specific - data types', function () {
+    it('should treat undefined as empty string', function () {
+      var arr = [
+        [1, UNDEFINED, 3],
+        [4, 5, 6]
+      ];
 
-    var str = SheetClip.stringify(arr);
+      var str = SheetClip.stringify(arr);
 
-    var expected = '1\t2\t3\n4\t5\t6\n';
+      var expected = '1\t\t3\n4\t5\t6\n';
 
-    expect(str).toEqual(expected);
+      expect(str).toEqual(expected);
+    });
+
+    it('should treat null as empty string', function () {
+      var arr = [
+        [1, null, 3],
+        [4, 5, 6]
+      ];
+
+      var str = SheetClip.stringify(arr);
+
+      var expected = '1\t\t3\n4\t5\t6\n';
+
+      expect(str).toEqual(expected);
+    });
   });
 
-  it('should stringify array of strings', function () {
-    var arr = [
-      ['A', 'B', 'C'],
-      ['D', 'E', 'F'],
-      ['G', 'H', 'I']
-    ];
 
-    var str = SheetClip.stringify(arr);
 
-    var expected = 'A\tB\tC\nD\tE\tF\nG\tH\tI\n';
+  describe('test files', function () {
 
-    expect(str).toEqual(expected);
-  });
+    it('should stringify plain text values (01_simple.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/01_simple.txt',
+        json: 'spec/01_simple.json'
+      };
+      var files = {};
 
-  it('should stringify array of strings with new line', function () {
-    var arr = [
-      ['A', 'B', 'C'],
-      ['D', 'E\nE', 'F'],
-      ['G', 'H', 'I']
-    ];
+      waitsFor(filesLoaded(test, files));
 
-    var str = SheetClip.stringify(arr);
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-    var expected = 'A\tB\tC\nD\t"E\nE"\tF\nG\tH\tI\n';
+    it('should stringify fully quoted cell (02_quoted_cell.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/02_quoted_cell.txt',
+        json: 'spec/02_quoted_cell.json'
+      };
+      var files = {};
 
-    expect(str).toEqual(expected);
-  });
+      waitsFor(filesLoaded(test, files));
 
-  it('should stringify array of strings with quotes', function () {
-    var arr = [
-      ['A', 'B', 'C'],
-      ['D', '"E"', 'F "effie" F'],
-      ['G', 'H', 'I']
-    ];
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-    var str = SheetClip.stringify(arr);
+    it('should stringify cell with a quoted word (03_quoted_word.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/03_quoted_word.txt',
+        json: 'spec/03_quoted_word.json'
+      };
+      var files = {};
 
-    var expected = 'A\tB\tC\nD\t"E"\tF "effie" F\nG\tH\tI\n';
+      waitsFor(filesLoaded(test, files));
 
-    expect(str).toEqual(expected);
-  });
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-  it('should stringify array of strings with quotes and new line', function () {
-    var arr = [
-      ['A', '"B"', 'C'],
-      ['D', '"E\nE"', 'F "effie\n finnie" F'],
-      ['G', 'H', 'I']
-    ];
+    it('should stringify a multiline cell (04_multiline.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/04_multiline.txt',
+        json: 'spec/04_multiline.json'
+      };
+      var files = {};
 
-    var str = SheetClip.stringify(arr);
+      waitsFor(filesLoaded(test, files));
 
-    var expected = 'A\t"B"\tC\nD\t"""E\nE"""\t"F ""effie\n finnie"" F"\nG\tH\tI\n';
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-    expect(str).toEqual(expected);
-  });
+    it('should stringify a multiline cell with a quoted word (05_quoted_multiline.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/05_quoted_multiline.txt',
+        json: 'spec/05_quoted_multiline.json'
+      };
+      var files = {};
 
-  it('should treat null as empty string', function () {
-    var arr = [
-      [1, null, 3],
-      [4, 5, 6]
-    ];
+      waitsFor(filesLoaded(test, files));
 
-    var str = SheetClip.stringify(arr);
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-    var expected = '1\t\t3\n4\t5\t6\n';
+    it('should stringify a cell that starts with a quote (06_quote_beginning.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/06_quote_beginning.txt',
+        json: 'spec/06_quote_beginning.json'
+      };
+      var files = {};
 
-    expect(str).toEqual(expected);
-  });
+      waitsFor(filesLoaded(test, files));
 
-  it('should treat undefined as empty string', function () {
-    var arr = [
-      [1, UNDEFINED, 3],
-      [4, 5, 6]
-    ];
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
 
-    var str = SheetClip.stringify(arr);
+    it('should stringify a cell that ends with a quote (07_quote_ending.json - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/07_quote_ending.txt',
+        json: 'spec/07_quote_ending.json'
+      };
+      var files = {};
 
-    var expected = '1\t\t3\n4\t5\t6\n';
+      waitsFor(filesLoaded(test, files));
 
-    expect(str).toEqual(expected);
+      runs(function () {
+        var parsedJson = JSON.parse(files.json);
+        var stringifiedJson = SheetClip.stringify(parsedJson);
+        expect(stringifiedJson).toEqual(files.tsv);
+      });
+    });
   });
 });

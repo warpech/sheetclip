@@ -1,102 +1,144 @@
 describe('SheetClip.parse', function () {
-  it('should parse array of numeric strings', function () {
-    var str = '1\t2\t3\n4\t5\t6\n';
+  describe('TSV specific - line endings', function () {
+    /*it('should parse \\r\\n', function () {
+     var str = '1\t2\t3\r\n4\t5\t6\r\n';
 
-    var expected = [
-      ['1', '2', '3'],
-      ['4', '5', '6']
-    ];
+     var expected = [
+     ['1', '2', '3'],
+     ['4', '5', '6']
+     ];
 
-    var arr = SheetClip.parse(str);
+     var arr = SheetClip.parse(str);
 
-    expect(arr).toEqual(expected);
+     expect(arr).toEqual(expected);
+     });*/
+
+    it('should parse \\n', function () {
+      var str = '1\t2\t3\n4\t5\t6\n';
+
+      var expected = [
+        ['1', '2', '3'],
+        ['4', '5', '6']
+      ];
+
+      var arr = SheetClip.parse(str);
+
+      expect(arr).toEqual(expected);
+    });
   });
 
-  it('should parse array of strings', function () {
-    var str = 'A\tB\tC\nD\tE\tF\nG\tH\tI\n';
+  describe('test files', function () {
 
-    var expected = [
-      ['A', 'B', 'C'],
-      ['D', 'E', 'F'],
-      ['G', 'H', 'I']
-    ];
+    it('should parse plain text values (01_simple.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/01_simple.txt',
+        json: 'spec/01_simple.json'
+      };
+      var files = {};
 
-    var arr = SheetClip.parse(str);
+      waitsFor(filesLoaded(test, files));
 
-    expect(arr).toEqual(expected);
-  });
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-  it('should parse array of strings with new line', function () {
-    var str = 'A\tB\tC\nD\t"E1\nE2"\tF\nG\tH\tI\n';
+    it('should parse fully quoted cell (02_quoted_cell.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/02_quoted_cell.txt',
+        json: 'spec/02_quoted_cell.json'
+      };
+      var files = {};
 
-    var expected = [
-      ['A', 'B', 'C'],
-      ['D', 'E1\nE2', 'F'],
-      ['G', 'H', 'I']
-    ];
+      waitsFor(filesLoaded(test, files));
 
-    var arr = SheetClip.parse(str);
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-    expect(arr).toEqual(expected);
-  });
+    it('should parse cell with a quoted word (03_quoted_word.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/03_quoted_word.txt',
+        json: 'spec/03_quoted_word.json'
+      };
+      var files = {};
 
-  it('should parse array of strings with quotes', function () {
-    var str = 'A\tB\tC\nD\t"E"\tF "effie" F\nG\tH\tI\n';
+      waitsFor(filesLoaded(test, files));
 
-    var expected = [
-      ['A', 'B', 'C'],
-      ['D', '"E"', 'F "effie" F'],
-      ['G', 'H', 'I']
-    ];
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-    var arr = SheetClip.parse(str);
+    it('should parse a multiline cell (04_multiline.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/04_multiline.txt',
+        json: 'spec/04_multiline.json'
+      };
+      var files = {};
 
-    expect(arr).toEqual(expected);
-  });
+      waitsFor(filesLoaded(test, files));
 
-  it('should parse array of strings with quotes and new line', function () {
-    var str = 'A\t"B"\tC\nD\t"""E\nE"""\t"F ""effie\n finnie"" F"\nG\tH\tI\n';
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-    var expected = [
-      ['A', '"B"', 'C'],
-      ['D', '"E\nE"', 'F "effie\n finnie" F'],
-      ['G', 'H', 'I']
-    ];
+    it('should parse a multiline cell with a quoted word (05_quoted_multiline.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/05_quoted_multiline.txt',
+        json: 'spec/05_quoted_multiline.json'
+      };
+      var files = {};
 
-    var arr = SheetClip.parse(str);
+      waitsFor(filesLoaded(test, files));
 
-    expect(arr).toEqual(expected);
-  });
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-  it('should parse one column with multiple quotes and new lines', function () {
-    var str = '"""A\nBC\nD"""\n"""E\n"""\n"F\nG\nH"""\n"""I\n"\nJ\n';
+    it('should parse a cell that starts with a quote (06_quote_beginning.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/06_quote_beginning.txt',
+        json: 'spec/06_quote_beginning.json'
+      };
+      var files = {};
 
-    var expected = [
-      ['"A\nBC\nD"'],
-      ['"E\n"'],
-      ['F\nG\nH"'],
-      ['"I\n'],
-      ['J']
-    ];
+      waitsFor(filesLoaded(test, files));
 
-    var arr = SheetClip.parse(str);
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
 
-    expect(arr).toEqual(expected);
-  });
+    it('should parse a cell that ends with a quote (07_quote_ending.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/07_quote_ending.txt',
+        json: 'spec/07_quote_ending.json'
+      };
+      var files = {};
 
-  it('should parse three columns with multiple quotes and new lines', function () {
-    var str = '\t"""A\nBC\nD"""\tE\n"""F\n"""\t"""G\n"""\tH\n"I\nJ\nK"""\t"L\nM\nN"""\t\n"""O\n"\t"""P\n"\t\nR\tS\tT\n';
+      waitsFor(filesLoaded(test, files));
 
-    var expected = [
-      ['', '"A\nBC\nD"', 'E'],
-      ['"F\n"', '"G\n"', 'H'],
-      ['I\nJ\nK"', 'L\nM\nN"', ''],
-      ['"O\n', '"P\n', ''],
-      ['R', 'S', 'T']
-    ];
-
-    var arr = SheetClip.parse(str);
-
-    expect(arr).toEqual(expected);
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
   });
 });
