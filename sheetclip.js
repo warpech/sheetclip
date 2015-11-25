@@ -44,6 +44,9 @@
               multiline = true;
             }
             else {
+              if (/\s?\:\s?(\"\")\s?/g.test(rows[r][c])) {
+                rows[r][c] = rows[r][c].replace(/(\s?\:\s?)(\"\")\s?/g, '$1"""');
+              }
               arr[a].push(rows[r][c].replace(/""/g, '"'));
               multiline = false;
             }

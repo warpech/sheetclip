@@ -157,5 +157,21 @@ describe('SheetClip.parse', function () {
       });
     });
 
+    it('should parse a single column, where one of the cells is a JSON (09_json_single_column - output from Excel for Mac 2011)', function () {
+      var test = {
+        tsv: 'spec/09_json_single_column.txt',
+        json: 'spec/09_json_single_column.json'
+      };
+      var files = {};
+
+      waitsFor(filesLoaded(test, files));
+
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
+
   });
 });
