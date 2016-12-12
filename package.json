@@ -1,0 +1,20 @@
+{
+	"name": "sheetclip",
+	"version": "0.3",
+	"description": "Tiny library that transforms JavaScript 2-dimensional arrays to clipboard strings compatible with spreadsheets such as Microsoft Excel, Google Docs, LibreOffice and OpenOffice",
+	"main": "sheetclip.js",
+	"author": "Marcin Warpechowski <marcin@nextgen.pl>",
+	"contributors": [
+		{
+			"name": "Michael Rochelle",
+			"email": "EliteScientist@gmail.com"
+		}
+	],
+	"license": "MIT",
+	"devDependencies": 
+	{
+	},
+	"dependencies": 
+	{
+	}
+}
