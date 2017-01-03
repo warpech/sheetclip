@@ -65,7 +65,7 @@
           }
           val = arr[r][c];
           if (typeof val === 'string') {
-            if (val.indexOf('\n') > -1) {
+            if (val.match(/\n|\t/)) {
               str += '"' + val.replace(/"/g, '""') + '"';
             }
             else {
