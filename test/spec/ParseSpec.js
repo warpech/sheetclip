@@ -157,5 +157,21 @@ describe('SheetClip.parse', function () {
       });
     });
 
+    it('should parse repeated quotes when single line and multiline (09_repeated_quote.txt - output from Excel Starter 2010)', function () {
+      var test = {
+        tsv: 'spec/09_quote_repeated.txt',
+        json: 'spec/09_quote_repeated.json'
+      };
+      var files = {};
+
+      waitsFor(filesLoaded(test, files));
+
+      runs(function () {
+        var parsedTsv = SheetClip.parse(files.tsv);
+        var parsedJson = JSON.parse(files.json);
+        expect(parsedTsv).toEqual(parsedJson);
+      });
+    });
+
   });
 });

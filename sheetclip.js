@@ -40,11 +40,11 @@
           }
           else {
             if (c === clen - 1 && rows[r][c].indexOf('"') === 0 && (countQuotes(rows[r][c]) & 1)) {
-              arr[a].push(rows[r][c].substring(1).replace(/""/g, '"'));
+              arr[a].push(rows[r][c].substring(1));
               multiline = true;
             }
             else {
-              arr[a].push(rows[r][c].replace(/""/g, '"'));
+              arr[a].push(rows[r][c]);
               multiline = false;
             }
           }
