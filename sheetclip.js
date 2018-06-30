@@ -18,7 +18,7 @@
   }
 
   global.SheetClip = {
-    parse: function (str) {
+    parse: (str) => {
       var r, rlen, rows, arr = [], a = 0, c, clen, multiline, last;
       rows = str.split('\n');
       if (rows.length > 1 && rows[rows.length - 1] === '') {
@@ -56,7 +56,7 @@
       return arr;
     },
 
-    stringify: function (arr) {
+    stringify: (arr) => {
       var r, rlen, c, clen, str = '', val;
       for (r = 0, rlen = arr.length; r < rlen; r += 1) {
         for (c = 0, clen = arr[r].length; c < clen; c += 1) {
