@@ -1,0 +1,54 @@
+{
+	"compilerOptions": 
+	{
+		"outDir": "./dist/",
+		/* Basic Options */
+		"allowJs":	false,                         /* Allow javascript files to be compiled. */
+		"checkJs":	false,                         /* Report errors in .js files. */
+		"target": 	"ESNext",
+		"module":	"ESNext",
+		"moduleResolution": "node",
+		"declaration": true,
+		"declarationDir": "./dts/",
+		"sourceMap": true,
+		"noImplicitAny": false,
+		"noEmit": false,
+		"esModuleInterop": true,
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"src/*"
+			],
+		},
+		"jsx": "react-jsx",
+		"experimentalDecorators": true,
+		
+		/* Strict Type-Checking Options */
+		"strict": true,                         /* Enable all strict type-checking options. */
+		"strictNullChecks": false,              /* Enable strict null checks. */
+		"strictFunctionTypes": false,           /* Enable strict checking of function types. */
+		"strictPropertyInitialization": false  /* Enable strict checking of property initialization in classes. */
+		// "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+		// "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+
+		/* Additional Checks */
+		// "noUnusedLocals": true,                /* Report errors on unused locals. */
+		// "noUnusedParameters": true,            /* Report errors on unused parameters. */
+		// "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+		// "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+	},	
+	"types": [
+	],
+	"include": [
+		"src"
+	],
+	"exclude": 
+	[
+		"node_modules",
+		"**/*.spec.ts",
+		"dist"
+	]
+}
