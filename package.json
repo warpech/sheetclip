@@ -1,0 +1,37 @@
+{
+	"name": "sheetclip",
+	"version": "0.4.0",
+	"description": "Tiny library that transforms JavaScript 2-dimensional arrays to clipboard strings compatible with spreadsheets such as Microsoft Excel, Google Docs, LibreOffice and OpenOffice",
+	"author": "Marcin Warpechowski <marcin@nextgen.pl>",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		"import": "./dist/index.esm.js",
+		"require": "./dist/index.cjs.js"
+	},
+	"scripts": {
+		"build": "rollup --config",
+		"test": "npm run build && jasmine"
+	},
+	"contributors": [
+		{
+			"name": "Michael Rochelle",
+			"email": "EliteScientist@gmail.com"
+		}
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@rollup/plugin-terser": "^0.4.3",
+		"@rollup/plugin-typescript": "^11.1.2",
+		"jasmine": "^5.1.0",
+		"jasmine-browser-runner": "^2.2.0",
+		"jasmine-core": "^5.1.1",
+		"rollup": "^3.28.1",
+		"rollup-plugin-delete": "^2.0.0",
+		"rollup-plugin-dts": "^6.0.0",
+		"ts-jest": "^29.1.1",
+		"ts-node": "^10.9.1",
+		"tslib": "^2.6.2",
+		"typescript": "^5.1.6"
+	}
+}
