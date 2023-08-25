@@ -11,7 +11,7 @@
 	},
 	"scripts": {
 		"build": "rollup --config",
-		"test": "jest"
+		"test": "npm run build && jasmine"
 	},
 	"contributors": [
 		{
@@ -23,7 +23,9 @@
 	"devDependencies": {
 		"@rollup/plugin-terser": "^0.4.3",
 		"@rollup/plugin-typescript": "^11.1.2",
-		"jest": "^29.6.3",
+		"jasmine": "^5.1.0",
+		"jasmine-browser-runner": "^2.2.0",
+		"jasmine-core": "^5.1.1",
 		"rollup": "^3.28.1",
 		"rollup-plugin-delete": "^2.0.0",
 		"rollup-plugin-dts": "^6.0.0",
